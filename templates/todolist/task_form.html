@@ -5,11 +5,8 @@
   <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    {% if object %}
-      <input type="submit" value="Create task">
-    {% else %}
-      <input type="submit" value="Update task">
-    {% endif %}
+    <button type="submit" class="btn btn-primary">{{ object|yesno:"Update,Create" }}</button>
+
 
   </form>
 {% endblock %}

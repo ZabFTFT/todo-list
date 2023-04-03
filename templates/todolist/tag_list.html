@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <a href="{% url 'todolist:create-tag' %}" class="btn btn-primary mb-3">Add Tag</a>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Tag's Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tag in tag_list %}
+              <tr>
+                <td>{{ tag.name }}</td>
+                <td>
+                  <a href="{% url 'todolist:update-tag' tag.id%}" class="btn btn-sm btn-warning">Update</a>
+                  <a href="{% url 'todolist:delete-tag' tag.id%}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
