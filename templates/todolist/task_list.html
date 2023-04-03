@@ -26,6 +26,16 @@
         </li>
         <a href="{% url 'todolist:update-task' task.id %}">Update</a>
         <a href="{% url 'todolist:delete-task' task.id %}">Delete</a>
+      <li>
+        <form action="{% url 'todolist:switch-status-task' task.id%}" method="post">
+          {% csrf_token %}
+          {% if task.done_marker == True %}
+            <input type="submit" value="Undo">
+          {% else %}
+            <input type="submit" value="Complete">
+          {% endif %}
+        </form>
+      </li>
       </ul>
     {% endfor %}
   {% endif %}
