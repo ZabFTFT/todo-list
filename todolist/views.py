@@ -57,7 +57,3 @@ def switch_complete_status(request, pk: int):
         task.done_marker = True
     task.save()
     return redirect("todolist:list-task")
-
-
-
-

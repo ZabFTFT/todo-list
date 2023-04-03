@@ -4,7 +4,9 @@ from todolist.models import Task
 
 
 class TaskCreateForm(forms.ModelForm):
-    deadline = forms.DateTimeField(required=False, widget=DateTimeInput(attrs={'type': 'datetime-local'}))
+    deadline = forms.DateTimeField(
+        required=False, widget=DateTimeInput(attrs={"type": "datetime-local"})
+    )
 
     class Meta:
         model = Task
