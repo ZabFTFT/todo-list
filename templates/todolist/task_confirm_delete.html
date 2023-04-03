@@ -4,7 +4,7 @@
   <h3>Delete task?</h3>
   <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Yes">
+    <input type="submit" class="btn btn-danger" value="Yes">
     <button type="button" class="btn btn-info" onclick="window.history.back()">No</button>
   </form>
 {% endblock %}
