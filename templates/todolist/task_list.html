@@ -1,42 +1,43 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <a href="{% url 'todolist:create-task' %}">Create task</a>
-  <h1>TODO List</h1>
-  {% if task_list %}
-    {% for task in task_list %}
-      <ul>
-        <li>
-          {{ task.content }}
-          {% if task.done_marker == True %}
-            Done
-          {% else %}
-            Not Done
-          {% endif %}
-        </li>
-        <li>Created: {{ task.datetime }}</li>
-      <li>
-        {% if task.deadline %}
-          Deadline: {{ task.deadline }}
-        {% endif %}
-      </li>
-        <li>Tags: {% for tag in task.tags.all %}
-          {{ tag.name }}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <a href="{% url 'todolist:create-task' %}" class="btn btn-primary mb-3">Create Task</a>
+        <h1>TODO List</h1>
+        {% if task_list %}
+          {% for task in task_list %}
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.content }}</h5>
+                {% if task.done_marker == True %}
+                  <p class="card-text"><small class="text-muted">Status: <span class="text-success">Done</span></small></p>
+                {% else %}
+                  <p class="card-text"><small class="text-muted">Status: <span class="text-danger">Not Done</span></small></p>
+                {% endif %}
+                <p class="card-text"><small class="text-muted">Created: {{ task.datetime }}</small></p>
+                {% if task.deadline %}
+                  <p class="card-text"><small class="text-muted">Deadline: {{ task.deadline }}</small></p>
+                {% endif %}
+                <p class="card-text"><small class="text-muted">Tags: {% for tag in task.tags.all %}{{ tag.name }} {% endfor %}</small></p>
+                <div class="btn-group" role="group">
+                  <a href="{% url 'todolist:update-task' task.id %}" class="btn btn-sm btn-warning">Update</a>
+                  <a href="{% url 'todolist:delete-task' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                  <form action="{% url 'todolist:switch-status-task' task.id%}" method="post">
+                    {% csrf_token %}
+                    {% if task.done_marker == True %}
+                      <button type="submit" class="btn btn-sm btn-secondary">Undo</button>
+                    {% else %}
+                      <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                    {% endif %}
+                  </form>
+                </div>
+              </div>
+            </div>
           {% endfor %}
-        </li>
-        <a href="{% url 'todolist:update-task' task.id %}">Update</a>
-        <a href="{% url 'todolist:delete-task' task.id %}">Delete</a>
-      <li>
-        <form action="{% url 'todolist:switch-status-task' task.id%}" method="post">
-          {% csrf_token %}
-          {% if task.done_marker == True %}
-            <input type="submit" value="Undo">
-          {% else %}
-            <input type="submit" value="Complete">
-          {% endif %}
-        </form>
-      </li>
-      </ul>
-    {% endfor %}
-  {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
