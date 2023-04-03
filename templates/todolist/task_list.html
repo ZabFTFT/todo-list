@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  I LOVE CODING
+  <a href="{% url 'todolist:create-task' %}">Create task</a>
+  {% if task_list %}
+    {% for task in task_list %}
+      <ul>
+        <li>{{ task.content }}</li>
+        <li>Created: {{ task.datetime }}</li>
+        <li>Created: {{ task.tags }}</li>
+      </ul>
+    {% endfor %}
+  {% endif %}
 {% endblock %}
