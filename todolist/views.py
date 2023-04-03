@@ -7,6 +7,7 @@ from todolist.models import Task
 
 class TaskListView(generic.ListView):
     model = Task
+    queryset = Task.objects.prefetch_related("tags")
 
 
 class TaskCreateView(generic.CreateView):
@@ -15,11 +16,14 @@ class TaskCreateView(generic.CreateView):
     success_url = reverse_lazy("todolist:list-task")
 
 
-
 class TaskUpdateView(generic.UpdateView):
     model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("todolist:list-task")
 
 
 class TaskDeleteView(generic.DeleteView):
     model = Task
+    success_url = reverse_lazy("todolist:list-task")
+
 
