@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>Delete tag?</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Yes">
+    <button type="button" class="btn btn-dark" onclick="window.history.back()">No</button>
+  </form>
+{% endblock %}
