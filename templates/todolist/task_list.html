@@ -15,11 +15,17 @@
           {% endif %}
         </li>
         <li>Created: {{ task.datetime }}</li>
-
+      <li>
+        {% if task.deadline %}
+          Deadline: {{ task.deadline }}
+        {% endif %}
+      </li>
         <li>Tags: {% for tag in task.tags.all %}
           {{ tag.name }}
           {% endfor %}
         </li>
+        <a href="{% url 'todolist:update-task' task.id %}">Update</a>
+        <a href="{% url 'todolist:delete-task' task.id %}">Delete</a>
       </ul>
     {% endfor %}
   {% endif %}
