@@ -15,5 +15,8 @@ class Task(models.Model):
     done_marker = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag)
 
+    class Meta:
+        ordering = ["done_marker"]
+
 
 

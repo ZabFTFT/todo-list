@@ -2,12 +2,24 @@
 
 {% block content %}
   <a href="{% url 'todolist:create-task' %}">Create task</a>
+  <h1>TODO List</h1>
   {% if task_list %}
     {% for task in task_list %}
       <ul>
-        <li>{{ task.content }}</li>
+        <li>
+          {{ task.content }}
+          {% if task.done_marker == True %}
+            Done
+          {% else %}
+            Not Done
+          {% endif %}
+        </li>
         <li>Created: {{ task.datetime }}</li>
-        <li>Created: {{ task.tags }}</li>
+
+        <li>Tags: {% for tag in task.tags.all %}
+          {{ tag.name }}
+          {% endfor %}
+        </li>
       </ul>
     {% endfor %}
   {% endif %}
